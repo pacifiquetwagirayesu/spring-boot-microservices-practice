@@ -1,0 +1,11 @@
+server:
+  port: 7002
+  error:
+    include-message: always
+logging:
+  level:
+    root: INFO
+    com.pacifique: DEBUG
+spring:
+  application:
+    name: recommendation-service

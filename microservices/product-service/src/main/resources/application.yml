@@ -4,16 +4,19 @@ server:
 spring:
     application:
       name: product-service
+    data:
+      mongodb:
+        host: localhost
+        port: 27017
+        database: product-db
 
 logging:
   level:
     root: INFO
     com.pacifique: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: docker
-server:
-  port: 8080
+server.port: 8080
+spring.config.activate.on-profile: docker
+spring.data.mongodb.host: mongodb

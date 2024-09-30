@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Product {
-    private final int productId;
-    private final String name;
-    private final int weight;
-    private final String serviceAddress;
+    private int productId;
+    private String name;
+    private int weight;
+    private  String serviceAddress;
 }

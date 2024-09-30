@@ -10,18 +10,17 @@ public class HttpErrorInfo {
     private final HttpStatus httpStatus;
     private final String message;
 
-
     public HttpErrorInfo() {
-        this.timestamp = null;
+        timestamp = null;
         this.httpStatus = null;
         this.path = null;
         this.message = null;
     }
 
-    public HttpErrorInfo(String path, HttpStatus httpStatus, String message) {
-        this.timestamp = ZonedDateTime.now();
-        this.path = path;
+    public HttpErrorInfo(HttpStatus httpStatus, String path, String message) {
+        timestamp = ZonedDateTime.now();
         this.httpStatus = httpStatus;
+        this.path = path;
         this.message = message;
     }
 
@@ -33,15 +32,15 @@ public class HttpErrorInfo {
         return path;
     }
 
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
+    public int getStatus() {
+        return httpStatus.value();
+    }
+
+    public String getError() {
+        return httpStatus.getReasonPhrase();
     }
 
     public String getMessage() {
         return message;
-    }
-
-    public String getError(){
-        return this.httpStatus.getReasonPhrase();
     }
 }

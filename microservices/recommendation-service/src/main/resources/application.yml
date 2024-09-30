@@ -6,14 +6,18 @@ logging:
   level:
     root: INFO
     com.pacifique: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
 spring:
   application:
     name: recommendation-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: recommendation-db
 
 ---
-server:
-  port: 8080
-spring:
-  config:
-    activate:
-      on-profile: docker
+server.port: 8080
+spring.config.activate.on-profile: docker
+spring.data.mongodb.host: mongodb

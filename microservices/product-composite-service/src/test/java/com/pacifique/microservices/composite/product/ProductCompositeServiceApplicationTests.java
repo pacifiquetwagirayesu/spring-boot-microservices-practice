@@ -22,7 +22,7 @@ import com.pacifique.microservices.api.core.review.Review;
 import com.pacifique.microservices.api.exceptions.InvalidInputException;
 import com.pacifique.microservices.api.exceptions.NotFoundException;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT,properties = "eureka.client.enabled=false")
 class ProductCompositeServiceApplicationTests {
 
     private static final int PRODUCT_ID_OK = 1;

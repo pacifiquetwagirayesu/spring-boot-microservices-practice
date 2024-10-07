@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpStatus;
@@ -50,24 +49,18 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
     @Autowired
     public ProductCompositeIntegration(
             @Qualifier("publishEventScheduler") Scheduler publishEventScheduler,
-            WebClient.Builder webClient,
+            WebClient.Builder webClientBuilder,
             StreamBridge streamBridge,
-            ObjectMapper mapper,
-            @Value("${app.product-service.host}") String productServiceHost,
-            @Value("${app.product-service.port}") int productServicePort,
-            @Value("${app.recommendation-service.host}") String recommendationServiceHost,
-            @Value("${app.recommendation-service.port}") int recommendationServicePort,
-            @Value("${app.review-service.host}") String reviewServiceHost,
-            @Value("${app.review-service.port}") int reviewServicePort
+            ObjectMapper mapper
 
     ) {
         this.mapper = mapper;
-        this.webClient = webClient.build();
+        this.webClient = webClientBuilder.build();
         this.streamBridge = streamBridge;
         this.publishEventScheduler = publishEventScheduler;
-        this.productServiceUrl        = "http://" + productServiceHost + ":" + productServicePort;
-        this.recommendationServiceUrl = "http://" + recommendationServiceHost + ":" + recommendationServicePort;
-        this.reviewServiceUrl         = "http://" + reviewServiceHost + ":" + reviewServicePort;
+        this.productServiceUrl = "http://product";
+        this.recommendationServiceUrl = "http://recommendation";
+        this.reviewServiceUrl = "http://review";
     }
 
 

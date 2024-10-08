@@ -11,8 +11,6 @@
 : ${PROD_ID_NO_RECS=113}
 : ${PROD_ID_NO_REVS=213}
 
-
-
 function assertCurl() {
 
   local expectedHttpCode=$1
@@ -175,8 +173,6 @@ echo "Start Tests:" `date`
 echo "HOST=${HOST}"
 echo "PORT=${PORT}"
 
-
-
 if [[ $@ == *"start"* ]]
 then
   echo "Restarting the test environment..."
@@ -187,9 +183,10 @@ then
 fi
 
 waitForService curl http://$HOST:$PORT/actuator/health
+
 # Verify access to Eureka and that all four microservices are registered in Eureka
-assertCurl 200 "curl -H "accept:application/json" $HOST:8761/eureka/apps -s"
-assertEqual 4 $(echo $RESPONSE | jq ".applications.application | length")
+assertCurl 200 "curl -H "accept:application/json" $HOST:$PORT/eureka/api/apps -s"
+assertEqual 5 $(echo $RESPONSE | jq ".applications.application | length")
 
 setupTestdata
 
@@ -235,16 +232,11 @@ assertEqual "3.0.1" "$(echo $RESPONSE | jq -r .openapi)"
 assertEqual "http://$HOST:$PORT" "$(echo $RESPONSE | jq -r '.servers[0].url')"
 assertCurl 200 "curl -s  http://$HOST:$PORT/openapi/v3/api-docs.yaml"
 
-
-
 if [[ $@ == *"stop"* ]]
 then
     echo "We are done, stopping the test environment..."
     echo "$ docker compose down"
     docker compose down
 fi
-
-
-
 
 echo "End, all tests OK:" `date`

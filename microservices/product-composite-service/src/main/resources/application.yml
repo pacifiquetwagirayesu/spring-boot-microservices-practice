@@ -4,6 +4,9 @@ springdoc:
   packagesToScan: com.pacifique.microservices.composite.product
   pathsToMatch: /**
 
+
+server.forward-headers-strategy: framework
+
 api:
 
   common:
